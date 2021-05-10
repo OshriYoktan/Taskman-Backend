@@ -35,11 +35,12 @@ async function addBoard(board) {
         board.members = JSON.stringify(board.members)
         board.activity = JSON.stringify(board.activity)
         board.cards = JSON.stringify(board.cards)
+        board.background = JSON.stringify(board.background)
         board._id = makeId()
         var query = `INSERT INTO board 
-        (_id, title, members, activity, cards, backgroundColor, backgroundImg) VALUES 
+        (_id, title, members, activity, cards, background) VALUES 
         ('${board._id}', '${board.title}', '${board.members}','${board.activity}',
-        '${board.cards}', '${board.backgroundColor}', '${board.backgroundImg}')`;
+        '${board.cards}', '${board.background}')`;
         await dbService.runSQL(query)
     } catch (err) {
         console.log('err:', err)
@@ -50,14 +51,14 @@ async function updateBoard(board) {
     board.members = JSON.stringify(board.members)
     board.activity = JSON.stringify(board.activity)
     board.cards = JSON.stringify(board.cards)
+    board.background = JSON.stringify(board.background)
     var query = `UPDATE board SET
     _id = '${board._id}',
     title = '${board.title}',
     members = '${board.members}',
     activity = '${board.activity}',
     cards = '${board.cards}',
-    backgroundColor = '${board.backgroundColor}',
-    backgroundImg = '${board.backgroundImg}'
+    background = '${board.background}'
     WHERE board._id = '${board._id}'`;
     var okPacket = await dbService.runSQL(query);
     if (okPacket.affectedRows !== 0) return okPacket;
@@ -74,7 +75,7 @@ async function removeBoard(boardId) {
 }
 
 function _readyForSend(board) {
-    if (board.backgroundColor === 'null') board.backgroundColor = JSON.parse(board.backgroundColor)
+    board.background = JSON.parse(board.background)
     board.members = JSON.parse(board.members)
     board.activity = JSON.parse(board.activity)
     board.cards = JSON.parse(board.cards)
