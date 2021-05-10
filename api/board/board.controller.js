@@ -4,7 +4,6 @@ const boardService = require('./board.service')
 
 async function getBoards(req, res) {
     try {
-        console.log('query!');
         const boards = await boardService.query(req.query)
         res.send(boards)
     } catch (err) {
@@ -16,8 +15,7 @@ async function getBoards(req, res) {
 async function getBoardById(req, res) {
     try {
         const board = await boardService.getBoardById(req.params.id)
-        const boardReady = _readyForSend(board)
-        res.send(boardReady)
+        res.send(board)
     } catch (err) {
         logger.error('Cannot get boards', err)
         res.status(500).send({ err: 'Failed to get boards' })
@@ -34,32 +32,32 @@ async function deleteBoard(req, res) {
     }
 }
 
-
 async function addBoard(req, res) {
     try {
         var board = req.body
-        board.byUserId = req.session.user._id
-        board = await boardService.add(board)
-        board.byUser = req.session.user
-        board.aboutUser = await userService.getBoardById(board.aboutUserId)
+        board = await boardService.addBoard(board)
         res.send(board)
-
     } catch (err) {
         logger.error('Failed to add board', err)
         res.status(500).send({ err: 'Failed to add board' })
     }
 }
 
-function _readyForSend(board) {
-    board.members = JSON.parse(board.members)
-    board.activity = JSON.parse(board.activity)
-    board.cards = JSON.parse(board.cards)
-    return board;
+async function updateBoard(req, res) {
+    try {
+        var board = req.body
+        board = await boardService.updateBoard(board)
+        res.send(board)
+    } catch (err) {
+        logger.error('Failed to add board', err)
+        res.status(500).send({ err: 'Failed to add board' })
+    }
 }
 
 module.exports = {
     getBoards,
     deleteBoard,
     getBoardById,
-    addBoard
+    addBoard,
+    updateBoard
 }
