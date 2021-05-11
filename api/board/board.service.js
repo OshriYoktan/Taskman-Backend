@@ -1,11 +1,11 @@
 var dbService = require('../../services/db.service.js')
 
 module.exports = {
-    query,
+    removeBoard,
     getBoardById,
+    query,
     addBoard,
     updateBoard,
-    removeBoard,
 }
 
 async function query(filter) {
@@ -36,11 +36,12 @@ async function addBoard(board) {
         board.activity = JSON.stringify(board.activity)
         board.cards = JSON.stringify(board.cards)
         board.background = JSON.stringify(board.background)
+        board.labels = JSON.stringify(board.labels)
         board._id = makeId()
         var query = `INSERT INTO board 
-        (_id, title, members, activity, cards, background) VALUES 
+        (_id, title, members, activity, cards, background, labels) VALUES 
         ('${board._id}', '${board.title}', '${board.members}','${board.activity}',
-        '${board.cards}', '${board.background}')`;
+        '${board.cards}', '${board.background}', '${board.labels}')`;
         await dbService.runSQL(query)
     } catch (err) {
         console.log('err:', err)
@@ -52,6 +53,7 @@ async function updateBoard(board) {
     board.activity = JSON.stringify(board.activity)
     board.cards = JSON.stringify(board.cards)
     board.background = JSON.stringify(board.background)
+    board.labels = JSON.stringify(board.labels)
     var query = `UPDATE board SET
     _id = '${board._id}',
     title = '${board.title}',
@@ -59,6 +61,7 @@ async function updateBoard(board) {
     activity = '${board.activity}',
     cards = '${board.cards}',
     background = '${board.background}'
+    labels = '${board.labels}'
     WHERE board._id = '${board._id}'`;
     var okPacket = await dbService.runSQL(query);
     if (okPacket.affectedRows !== 0) return okPacket;
@@ -79,6 +82,7 @@ function _readyForSend(board) {
     board.members = JSON.parse(board.members)
     board.activity = JSON.parse(board.activity)
     board.cards = JSON.parse(board.cards)
+    board.labels = JSON.parse(board.labels)
     return board;
 }
 
