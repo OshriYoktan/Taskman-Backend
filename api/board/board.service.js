@@ -60,7 +60,7 @@ async function updateBoard(board) {
     members = '${board.members}',
     activity = '${board.activity}',
     cards = '${board.cards}',
-    background = '${board.background}'
+    background = '${board.background}',
     labels = '${board.labels}'
     WHERE board._id = '${board._id}'`;
     var okPacket = await dbService.runSQL(query);
