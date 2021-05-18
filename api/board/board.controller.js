@@ -34,7 +34,6 @@ async function deleteBoard(req, res) {
 
 async function addBoard(req, res) {
     try {
-        console.log('board');
         var board = req.body
         board = await boardService.addBoard(board)
         res.send(board)
