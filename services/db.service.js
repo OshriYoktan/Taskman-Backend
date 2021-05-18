@@ -1,12 +1,10 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    // port: 3306,
-    user: 'root',
-    password: '',
-    database: 'taskman',
-    insecureAuth: true
+    host: 'us-cdbr-east-03.cleardb.com',
+    user: 'be6d4851b3a4ec',
+    password: 'ce6e6dae',
+    database: 'heroku_5188455ad9124e3',
 });
 
 connection.connect(err => {
