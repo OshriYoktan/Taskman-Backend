@@ -12,7 +12,9 @@ async function query(filter) {
     try {
         var query = (Object.keys(filter).length) ? `SELECT * FROM board WHERE name LIKE '%${filter}%'` : `SELECT * FROM board`
         const boards = await dbService.runSQL(query)
-        const boardsToReturn = boards.map(board => _readyForSend(board))
+        const boardsToReturn = boards.map(board => {
+            return _readyForSend(board)
+        })
         return boardsToReturn;
     } catch (err) {
         console.log('err:', err)
@@ -78,10 +80,12 @@ async function removeBoard(boardId) {
 }
 
 function _readyForSend(board) {
+    console.log('board:', board)
     if (board.background) board.background = JSON.parse(board.background)
     board.members = JSON.parse(board.members)
     board.activity = JSON.parse(board.activity)
     board.cards = JSON.parse(board.cards)
+    console.log('board.cards:', board.cards)
     board.labels = JSON.parse(board.labels)
     return board;
 }
