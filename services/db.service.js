@@ -13,7 +13,6 @@ connection.connect(err => {
 })
 
 function runSQL(query) {
-    console.log('query:', query)
     return new Promise((resolve, reject) => {
         connection.query(query, function (error, results, fields) {
             if (error) reject(error);

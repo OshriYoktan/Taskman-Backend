@@ -84,7 +84,6 @@ function _readyForSend(board) {
     board.members = JSON.parse(board.members)
     board.activity = JSON.parse(board.activity)
     board.cards = JSON.parse(board.cards)
-    console.log('board.cards:', board.cards)
     board.labels = JSON.parse(board.labels)
     return board;
 }
