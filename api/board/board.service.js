@@ -12,11 +12,7 @@ async function query(filter) {
     try {
         var query = (Object.keys(filter).length) ? `SELECT * FROM board WHERE name LIKE '%${filter}%'` : `SELECT * FROM board`
         const boards = await dbService.runSQL(query)
-        console.log('boards:', boards)
-        const boardsToReturn = boards.map(board => {
-            console.log('board:', board)
-            return _readyForSend(board)
-        })
+        const boardsToReturn = boards.map(board => _readyForSend(board))
         return boardsToReturn;
     } catch (err) {
         console.log('err:', err)
