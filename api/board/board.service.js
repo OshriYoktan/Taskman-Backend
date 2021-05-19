@@ -12,7 +12,9 @@ async function query(filter) {
     try {
         var query = (Object.keys(filter).length) ? `SELECT * FROM board WHERE name LIKE '%${filter}%'` : `SELECT * FROM board`
         const boards = await dbService.runSQL(query)
+        console.log('boards:', boards)
         const boardsToReturn = boards.map(board => {
+            console.log('board:', board)
             return _readyForSend(board)
         })
         return boardsToReturn;
@@ -96,3 +98,5 @@ function makeId(length = 11) {
     }
     return txt
 }
+
+// [{ "_id": "c101", "title": "Do this", "tasks": [{ "_id": "t101", "title": "app", "desc": null, "createdAt": 1620827029547, "labels": [{ "desc": "One more step", "color": "#F2D600" }, { "desc": "Product Marketing", "color": "#EB5A46" }, { "desc": "Help", "color": "#0079BF" }], "isDone": false, "activity": [], "members": [], "isWithAttachment": false, "cover": "white", "checklists": [{ "title": "asd", "list": [{ "desc": "www", "isChecked": true }, { "desc": "ddd", "isChecked": false }, { "desc": "qqq", "isChecked": true }], "range": 66.67 }], "doneAt": null }]}]
