@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/taskman/static/css/main.a5208bdb.chunk.css",
+    "main.js": "/taskman/static/js/main.ad9e0444.chunk.js",
+    "main.js.map": "/taskman/static/js/main.ad9e0444.chunk.js.map",
+    "runtime-main.js": "/taskman/static/js/runtime-main.48692dad.js",
+    "runtime-main.js.map": "/taskman/static/js/runtime-main.48692dad.js.map",
+    "static/js/2.509a3b7f.chunk.js": "/taskman/static/js/2.509a3b7f.chunk.js",
+    "static/js/2.509a3b7f.chunk.js.map": "/taskman/static/js/2.509a3b7f.chunk.js.map",
+    "static/js/3.2d97d20c.chunk.js": "/taskman/static/js/3.2d97d20c.chunk.js",
+    "static/js/3.2d97d20c.chunk.js.map": "/taskman/static/js/3.2d97d20c.chunk.js.map",
+    "index.html": "/taskman/index.html",
+    "static/css/main.a5208bdb.chunk.css.map": "/taskman/static/css/main.a5208bdb.chunk.css.map",
+    "static/js/2.509a3b7f.chunk.js.LICENSE.txt": "/taskman/static/js/2.509a3b7f.chunk.js.LICENSE.txt",
+    "static/media/homepage.e1823959.png": "/taskman/static/media/homepage.e1823959.png",
+    "static/media/taskman-loader.d5d52ecc.svg": "/taskman/static/media/taskman-loader.d5d52ecc.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.48692dad.js",
+    "static/js/2.509a3b7f.chunk.js",
+    "static/css/main.a5208bdb.chunk.css",
+    "static/js/main.ad9e0444.chunk.js"
+  ]
+}
