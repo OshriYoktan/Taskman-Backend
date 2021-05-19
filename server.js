@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(session)
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, 'public')))
+    app.use(express.static(path.resolve(__dirname, '../frontend/build')))
 } else {
     const corsOptions = {
         origin: ['http://127.0.0.1:8080', 'http://localhost:8080', 'http://127.0.0.1:3000', 'http://localhost:3000'],
@@ -34,8 +34,6 @@ const { connectSockets } = require('./services/socket.service')
 // routes
 const setupAsyncLocalStorage = require('./middlewares/setupAls.middleware')
 app.all('*', setupAsyncLocalStorage)
-
-// TODO: check with app.use
 
 // app.use('/api/auth', authRoutes)
 // app.use('/api/user', userRoutes)
