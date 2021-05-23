@@ -1,5 +1,3 @@
-
-
 const asyncLocalStorage = require('./als.service');
 const logger = require('./logger.service');
 
@@ -15,6 +13,7 @@ function connectSockets(http, session) {
         autoSave: true
     }));
     gIo.on('connection', socket => {
+        console.log('Someone connected')
         // console.log('socket.handshake', socket.handshake)
         gSocketBySessionIdMap[socket.handshake.sessionID] = socket
         // TODO: emitToUser feature - need to tested for CaJan21
@@ -26,6 +25,7 @@ function connectSockets(http, session) {
             }
         })
         socket.on('chat topic', topic => {
+            console.log('topic:', topic)
             if (socket.myTopic === topic) return;
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
@@ -34,20 +34,24 @@ function connectSockets(http, session) {
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.myTopic = topic
         })
-        socket.on('chat newMsg', msg => {
+        socket.on("add-member-to-task", member => {
+            console.log('member:', member)
             // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room
-            gIo.to(socket.myTopic).emit('chat addMsg', msg)
+            console.log('socket.myTopic:', socket.myTopic)
+            gIo.emit("add-member-to-task-from-back", member);
+            // gIo.to(socket.myTopic).emit('add-member-to-task-from-back', member)
         })
         socket.on('board-added', board => {
-            // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
-            // emits only to sockets in the same room
             socket.broadcast.emit('board-added', board)
         })
 
     })
+}
+
+function emitToAll({ type, data, room = null }) {
+    if (room) gIo.to(room).emit(type, data)
+    else gIo.emit(type, data)
 }
 
 function emit({ type, data }) {
@@ -74,6 +78,7 @@ function broadcast({ type, data }) {
 module.exports = {
     connectSockets,
     emit,
+    emitToAll,
     broadcast
 }
 
