@@ -76,7 +76,7 @@ async function removeBoard(boardId) {
         .then(okPacket => okPacket.affectedRows === 1
             ? okPacket
             : Promise.reject(new Error(`No board deleted - board id ${boardId}`)));
-    console.log('res:', res)
+
 }
 
 function _readyForSend(board) {
