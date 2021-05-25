@@ -23,7 +23,7 @@ function connectSockets(http, session) {
                 gSocketBySessionIdMap[socket.handshake.sessionID] = null
             }
         })
-        socket.on('chat topic', topic => {
+        socket.on('board topic', topic => {
             if (socket.myTopic === topic) return;
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
@@ -41,9 +41,10 @@ function connectSockets(http, session) {
         socket.on('board-added', board => {
             socket.broadcast.emit('board-added', board)
         })
-        socket.on('task to-add-task', task => {
-            console.log('task:', task)
-            gIo.in(socket.myTopic).emit('task add-task', task)
+        socket.on('task to-add-task', data => {
+            console.log('////////////////////////////', data)
+            socket.broadcast.emit('task add-task', data)
+            // gIo.in(socket.myTopic).emit('task add-task', task)
         })
         socket.on('to-update-board', id => {
             gIo.in(socket.myTopic).emit('update-board', id)
