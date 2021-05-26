@@ -38,16 +38,26 @@ function connectSockets(http, session) {
             // emits only to sockets in the same room
             gIo.to(socket.myTopic).emit('chat addMsg', msg)
         })
-        socket.on('board-added', board => {
-            socket.broadcast.emit('board-added', board)
+        socket.on('task to-add-task', task => {
+            socket.broadcast.emit('task add-task', task)
         })
-        socket.on('task to-add-task', data => {
-            console.log('////////////////////////////', data)
-            socket.broadcast.emit('task add-task', data)
-            // gIo.in(socket.myTopic).emit('task add-task', task)
+        socket.on('task to-update-task', data => {
+            socket.broadcast.emit('task update-task', data)
         })
-        socket.on('to-update-board', id => {
-            gIo.in(socket.myTopic).emit('update-board', id)
+        socket.on('card to-add-card', card => {
+            socket.broadcast.emit('card add-card', card)
+        })
+        socket.on('card to-update-card', data => {
+            socket.broadcast.emit('card update-card', data)
+        })
+        socket.on('card to-update-card-title', data => {
+            socket.broadcast.emit('card update-card-title', data)
+        })
+        socket.on('board to-add-label', data => {
+            socket.broadcast.emit('board add-label', data)
+        })
+        socket.on('board to-add-activity', data => {
+            socket.broadcast.emit('board add-activity', data)
         })
     })
 }
