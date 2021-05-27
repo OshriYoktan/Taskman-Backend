@@ -47,6 +47,9 @@ function connectSockets(http, session) {
         socket.on('card to-add-card', card => {
             socket.broadcast.emit('card add-card', card)
         })
+        socket.on('card to-delete-card', cardIdx => {
+            socket.broadcast.emit('card delete-card', cardIdx)
+        })
         socket.on('card to-update-card', data => {
             socket.broadcast.emit('card update-card', data)
         })
