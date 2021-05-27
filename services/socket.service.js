@@ -12,11 +12,10 @@ function connectSockets(http, session) {
     gIo.use(sharedSession(session, {
         autoSave: true
     }));
+
     gIo.on('connection', socket => {
         console.log('Someone connected')
-        // console.log('socket.handshake', socket.handshake)
         gSocketBySessionIdMap[socket.handshake.sessionID] = socket
-        // TODO: emitToUser feature - need to tested for CaJan21
         // if (socket.handshake?.session?.user) socket.join(socket.handshake.session.user._id)
         socket.on('disconnect', socket => {
             console.log('Someone disconnected')
@@ -24,8 +23,7 @@ function connectSockets(http, session) {
                 gSocketBySessionIdMap[socket.handshake.sessionID] = null
             }
         })
-        socket.on('chat topic', topic => {
-            console.log('topic:', topic)
+        socket.on('board topic', topic => {
             if (socket.myTopic === topic) return;
             if (socket.myTopic) {
                 socket.leave(socket.myTopic)
@@ -42,10 +40,27 @@ function connectSockets(http, session) {
             gIo.emit("add-member-to-task-from-back", member);
             // gIo.to(socket.myTopic).emit('add-member-to-task-from-back', member)
         })
-        socket.on('board-added', board => {
-            socket.broadcast.emit('board-added', board)
+        socket.on('task to-add-task', task => {
+            socket.broadcast.emit('task add-task', task)
         })
-
+        socket.on('task to-update-task', data => {
+            socket.broadcast.emit('task update-task', data)
+        })
+        socket.on('card to-add-card', card => {
+            socket.broadcast.emit('card add-card', card)
+        })
+        socket.on('card to-update-card', data => {
+            socket.broadcast.emit('card update-card', data)
+        })
+        socket.on('card to-update-card-title', data => {
+            socket.broadcast.emit('card update-card-title', data)
+        })
+        socket.on('board to-add-label', data => {
+            socket.broadcast.emit('board add-label', data)
+        })
+        socket.on('board to-add-activity', data => {
+            socket.broadcast.emit('board add-activity', data)
+        })
     })
 }
 
@@ -58,13 +73,11 @@ function emit({ type, data }) {
     gIo.emit(type, data)
 }
 
-// TODO: Need to test emitToUser feature
 function emitToUser({ type, data, userId }) {
     gIo.to(userId).emit(type, data)
 }
 
-
-// Send to all sockets BUT not the current socket 
+// Send to all sockets BUT not the current socket
 function broadcast({ type, data }) {
     const store = asyncLocalStorage.getStore()
     const { sessionId } = store
@@ -74,13 +87,9 @@ function broadcast({ type, data }) {
     excludedSocket.broadcast.emit(type, data)
 }
 
-
 module.exports = {
     connectSockets,
     emit,
     emitToAll,
     broadcast
 }
-
-
-
