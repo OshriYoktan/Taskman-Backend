@@ -32,11 +32,13 @@ function connectSockets(http, session) {
             // logger.debug('Session ID is', socket.handshake.sessionID)
             socket.myTopic = topic
         })
-        socket.on('chat newMsg', msg => {
+        socket.on("add-member-to-task", member => {
+            console.log('member:', member)
             // emits to all sockets:
-            // gIo.emit('chat addMsg', msg)
             // emits only to sockets in the same room
-            gIo.to(socket.myTopic).emit('chat addMsg', msg)
+            console.log('socket.myTopic:', socket.myTopic)
+            gIo.emit("add-member-to-task-from-back", member);
+            // gIo.to(socket.myTopic).emit('add-member-to-task-from-back', member)
         })
         socket.on('task to-add-task', task => {
             socket.broadcast.emit('task add-task', task)
@@ -65,6 +67,11 @@ function connectSockets(http, session) {
     })
 }
 
+function emitToAll({ type, data, room = null }) {
+    if (room) gIo.to(room).emit(type, data)
+    else gIo.emit(type, data)
+}
+
 function emit({ type, data }) {
     gIo.emit(type, data)
 }
@@ -86,5 +93,6 @@ function broadcast({ type, data }) {
 module.exports = {
     connectSockets,
     emit,
+    emitToAll,
     broadcast
 }

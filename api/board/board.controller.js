@@ -2,6 +2,8 @@ const logger = require('../../services/logger.service')
 const userService = require('../user/user.service')
 const boardService = require('./board.service')
 
+
+
 async function getBoards(req, res) {
     try {
         const boards = await boardService.query(req.query)
