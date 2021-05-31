@@ -49,8 +49,8 @@ async function updateBoard(req, res) {
         board = await boardService.updateBoard(board)
         res.send(board)
     } catch (err) {
-        logger.error('Failed to add board', err)
-        res.status(500).send({ err: 'Failed to add board' })
+        logger.error('Failed to update board', err)
+        res.status(500).send({ err: 'Failed to update board' })
     }
 }
 
