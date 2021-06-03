@@ -1,7 +1,5 @@
 var dbService = require('../../services/db.service.js')
 
-
-
 module.exports = {
     removeBoard,
     getBoardById,
@@ -12,7 +10,7 @@ module.exports = {
 
 async function query(filter) {
     try {
-       
+
         var query = (Object.keys(filter).length) ? `SELECT * FROM board WHERE name LIKE '%${filter}%'` : `SELECT * FROM board`
         const boards = await dbService.runSQL(query)
         const boardsToReturn = boards.map(board => _readyForSend(board))
@@ -23,7 +21,7 @@ async function query(filter) {
 }
 
 async function getBoardById(boardId) {
- 
+
     var query = `SELECT * FROM board WHERE _id = ${boardId}`;
     var board = await dbService.runSQL(query);
     if (board.length === 1) {
@@ -53,10 +51,6 @@ async function addBoard(board) {
 }
 
 async function updateBoard(board) {
-    // console.log('board.title:', board.title)
-    // var regex = new RegExp(/'/g)
-    // board.title.replace(regex, 'replace')
-    console.log('board.title:', board.title)
     board.members = JSON.stringify(board.members)
     board.activity = JSON.stringify(board.activity)
     board.cards = JSON.stringify(board.cards)
@@ -86,7 +80,6 @@ async function removeBoard(boardId) {
 }
 
 function _readyForSend(board) {
-
     if (board.background) board.background = JSON.parse(board.background)
     board.members = JSON.parse(board.members)
     board.activity = JSON.parse(board.activity)
