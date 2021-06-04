@@ -6,7 +6,8 @@
     "scripts": {
         "start": "node server.js",
         "server:dev": "nodemon server.js",
-        "server:prod": "node server.js"
+        "server:prod": "node server.js",
+        "heroku": "git push heroku main"
     },
     "author": "Me",
     "license": "ISC",
