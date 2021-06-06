@@ -10,7 +10,6 @@ module.exports = {
 
 async function query(filter) {
     try {
-
         var query = (Object.keys(filter).length) ? `SELECT * FROM board WHERE name LIKE '%${filter}%'` : `SELECT * FROM board`
         const boards = await dbService.runSQL(query)
         const boardsToReturn = boards.map(board => _readyForSend(board))
@@ -21,7 +20,6 @@ async function query(filter) {
 }
 
 async function getBoardById(boardId) {
-
     var query = `SELECT * FROM board WHERE _id = ${boardId}`;
     var board = await dbService.runSQL(query);
     if (board.length === 1) {
@@ -39,11 +37,12 @@ async function addBoard(board) {
         board.cards = JSON.stringify(board.cards)
         board.background = JSON.stringify(board.background)
         board.labels = JSON.stringify(board.labels)
+        board.images = JSON.stringify(board.images)
         board._id = makeId()
         var query = `INSERT INTO board 
-        (_id, title, members, activity, cards, background, labels) VALUES 
+        (_id, title, members, activity, cards, background, labels, images) VALUES 
         ('${board._id}', '${board.title}', '${board.members}','${board.activity}',
-        '${board.cards}', '${board.background}', '${board.labels}')`;
+        '${board.cards}', '${board.background}', '${board.labels}', '${board.images}')`;
         await dbService.runSQL(query)
     } catch (err) {
         console.log('err:', err)
@@ -56,6 +55,7 @@ async function updateBoard(board) {
     board.cards = JSON.stringify(board.cards)
     board.background = JSON.stringify(board.background)
     board.labels = JSON.stringify(board.labels)
+    board.images = JSON.stringify(board.images)
     var query = `UPDATE board SET
     _id = '${board._id}',
     title = '${board.title}',
@@ -63,7 +63,8 @@ async function updateBoard(board) {
     activity = '${board.activity}',
     cards = '${board.cards}',
     background = '${board.background}',
-    labels = '${board.labels}'
+    labels = '${board.labels}',
+    images = '${board.images}'
     WHERE board._id = '${board._id}'`;
     var okPacket = await dbService.runSQL(query);
     if (okPacket.affectedRows !== 0) return okPacket;
@@ -85,6 +86,7 @@ function _readyForSend(board) {
     board.activity = JSON.parse(board.activity)
     board.cards = JSON.parse(board.cards)
     board.labels = JSON.parse(board.labels)
+    board.images = JSON.parse(board.images)
     return board;
 }
 
