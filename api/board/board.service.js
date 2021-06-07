@@ -32,13 +32,14 @@ async function getBoardById(boardId) {
 
 async function addBoard(board) {
     try {
+        console.log(board)
         board.members = JSON.stringify(board.members)
         board.activity = JSON.stringify(board.activity)
         board.cards = JSON.stringify(board.cards)
         board.background = JSON.stringify(board.background)
         board.labels = JSON.stringify(board.labels)
         board.images = JSON.stringify(board.images)
-        board._id = makeId()
+        board._id = makeId(11)
         var query = `INSERT INTO board 
         (_id, title, members, activity, cards, background, labels, images) VALUES 
         ('${board._id}', '${board.title}', '${board.members}','${board.activity}',

@@ -1,8 +1,7 @@
 
 const dbService = require('../../services/db.service.js')
-// const logger = require('../../services/logger.service')
+const logger = require('../../services/logger.service')
 const boardService = require('../board/board.service')
-const ObjectId = require('mongodb').ObjectId
 
 module.exports = {
     query,
@@ -14,21 +13,13 @@ module.exports = {
 }
 
 async function query(filterBy = {}) {
-    const criteria = _buildCriteria(filterBy)
     try {
-        const collection = await dbService.getCollection('user')
-        var users = await collection.find(criteria).toArray()
-        users = users.map(user => {
-            delete user.password
-            user.createdAt = ObjectId(user._id).getTimestamp()
-            // Returning fake fresh data
-            // user.createdAt = Date.now() - (1000 * 60 * 60 * 24 * 3) // 3 days ago
-            return user
-        })
-        return users
+        var query = (Object.keys(filter).length) ? `SELECT * FROM user WHERE name LIKE '%${filter}%'` : `SELECT * FROM user`
+        const users = await dbService.runSQL(query)
+        const usersToReturn = users.map(user => _readyUserForSend(user))
+        return usersToReturn;
     } catch (err) {
-        logger.error('cannot find users', err)
-        throw err
+        console.log('err:', err)
     }
 }
 
@@ -88,42 +79,21 @@ async function update(user) {
         throw err
     }
 }
-
+const user = { name: 'Aviv Zohar', username: 'avivzo9', password: 1234, tasks: [] }
+// add(user)
 async function add(user) {
     try {
-        // peek only updatable fields!
-        const userToAdd = {
-            username: user.username,
-            password: user.password,
-            fullname: user.fullname,
-            score: user.score || 0
-        }
-        const collection = await dbService.getCollection('user')
-        await collection.insertOne(userToAdd)
-        return userToAdd
+        user.tasks = JSON.stringify(user.tasks)
+        var query = `INSERT INTO user
+        (name, username, password, tasks) VALUES 
+        ('${user.name}', '${user.username}', '${user.password}', '${user.tasks}')`;
+        await dbService.runSQL(query)
     } catch (err) {
-        logger.error('cannot insert user', err)
-        throw err
+        console.log('err:', err)
     }
 }
 
-function _buildCriteria(filterBy) {
-    const criteria = {}
-    if (filterBy.txt) {
-        const txtCriteria = { $regex: filterBy.txt, $options: 'i' }
-        criteria.$or = [
-            {
-                username: txtCriteria
-            },
-            {
-                fullname: txtCriteria
-            }
-        ]
-    }
-    if (filterBy.minBalance) {
-        criteria.balance = { $gte: filterBy.minBalance }
-    }
-    return criteria
+function _readyUserForSend(user) {
+    user.tasks = JSON.parse(user.tasks)
+    return user;
 }
-
-
