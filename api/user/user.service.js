@@ -14,7 +14,6 @@ async function query() {
     try {
         var query = `SELECT * FROM user`
         const users = await dbService.runSQL(query)
-        console.log('users:', users)
         const usersToReturn = users.map(user => _readyUserForSend(user))
         return usersToReturn;
     } catch (err) {

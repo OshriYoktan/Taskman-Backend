@@ -31,7 +31,6 @@ async function getBoardById(boardId) {
 }
 
 async function addBoard(board) {
-    console.log('Added board!')
     try {
         board.members = JSON.stringify(board.members)
         board.activity = JSON.stringify(board.activity)
