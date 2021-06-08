@@ -20,7 +20,7 @@ async function query(filter) {
 }
 
 async function getBoardById(boardId) {
-    var query = `SELECT * FROM board WHERE _id = ${boardId}`;
+    var query = `SELECT * FROM board WHERE _id = '${boardId}'`;
     var board = await dbService.runSQL(query);
     if (board.length === 1) {
         const boardToReturn = _readyForSend(board[0])
@@ -31,8 +31,8 @@ async function getBoardById(boardId) {
 }
 
 async function addBoard(board) {
+    console.log('Added board!')
     try {
-        console.log(board)
         board.members = JSON.stringify(board.members)
         board.activity = JSON.stringify(board.activity)
         board.cards = JSON.stringify(board.cards)
