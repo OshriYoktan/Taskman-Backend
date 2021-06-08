@@ -8,7 +8,7 @@ var pool = mysql.createPool({
     database: 'heroku_5188455ad9124e3'
 });
 
-pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+pool.query('SELECT 1 + 1 AS solution', (error, results, fields) => {
     if (error) throw error;
     // console.log('The solution is: ', results[0].solution);
     console.log('connected to SQL server');
@@ -16,7 +16,7 @@ pool.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
 
 function runSQL(query) {
     return new Promise((resolve, reject) => {
-        pool.query(query, function (error, results, fields) {
+        pool.query(query, function (error, results) {
             if (error) reject(error);
             else resolve(results);
         });
