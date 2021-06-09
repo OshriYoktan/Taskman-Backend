@@ -2,18 +2,24 @@ const bcrypt = require('bcrypt')
 const userService = require('../user/user.service')
 const logger = require('../../services/logger.service')
 
+module.exports = {
+    signup,
+    login,
+}
 
 async function login(username, password) {
-    logger.debug(`auth.service - login with username: ${username}`)
-
-    const user = await userService.getByUsername(username)
-    if (!user) return Promise.reject('Invalid username or password')
-    // TODO: un-comment for real login
-    const match = await bcrypt.compare(password, user.password)
-    if (!match) return Promise.reject('Invalid username or password')
-
-    delete user.password
-    return user
+    try {
+        logger.debug(`auth.service - login with username: ${username}`)
+        const user = await userService.getByUsername(username)
+        if (!user) return Promise.reject('Invalid username or password')
+        const match = await userService.getByPassword(username, password)
+        if (!match) return Promise.reject('Invalid username or password')
+        delete user.password;
+        const userToReturn = _readyUserForSend(user)
+        return userToReturn;
+    } catch (err) {
+        console.log('err:', err)
+    }
 }
 
 async function signup(username, password, fullname) {
@@ -26,7 +32,7 @@ async function signup(username, password, fullname) {
     return userService.add({ username, password: hash, fullname })
 }
 
-module.exports = {
-    signup,
-    login,
+function _readyUserForSend(user) {
+    user.tasks = JSON.parse(user.tasks)
+    return user;
 }
