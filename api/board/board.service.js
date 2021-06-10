@@ -67,7 +67,8 @@ async function updateBoard(board) {
     images = '${board.images}'
     WHERE board._id = '${board._id}'`;
     var okPacket = await dbService.runSQL(query);
-    if (okPacket.affectedRows !== 0) return okPacket;
+    const boardToReturn = _readyForSend(board)
+    if (okPacket.affectedRows !== 0) return boardToReturn;
     throw new Error(`No board updated - board id ${board._id}`);
 }
 

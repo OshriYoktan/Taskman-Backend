@@ -85,7 +85,8 @@ async function update(user) {
         tasks = '${user.tasks}'
         WHERE user._id = '${user._id}'`;
         var okPacket = await dbService.runSQL(query);
-        if (okPacket.affectedRows !== 0) return okPacket;
+        const userToReturn = _readyUserForSend(user)
+        if (okPacket.affectedRows !== 0) return userToReturn;
         throw new Error(`No user updated - user id ${user._id}`);
     } catch (err) {
         console.log('err:', err)
