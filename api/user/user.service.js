@@ -95,12 +95,16 @@ async function update(user) {
 
 async function addUser(user) {
     try {
+        const usersToCheck = await query()
+        const usernameCheck = usersToCheck.filter(u => u.username === user.username)
+        if (usernameCheck.length) throw new Error(`Username - '${user.username}' is already taken.`);
         user._id = makeId(20)
         user.tasks = JSON.stringify(user.tasks)
-        var query = `INSERT INTO user
+        var sql = `INSERT INTO user
         (name, username, password, _id, tasks) VALUES 
         ('${user.name}', '${user.username}', '${user.password}', '${user._id}', '${user.tasks}')`;
-        await dbService.runSQL(query)
+        await dbService.runSQL(sql)
+        return user;
     } catch (err) {
         console.log('err:', err)
     }

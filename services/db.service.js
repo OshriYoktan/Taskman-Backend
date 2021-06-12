@@ -16,7 +16,7 @@ pool.query('SELECT 1 + 1 AS solution', (error, results, fields) => {
 
 function runSQL(query) {
     return new Promise((resolve, reject) => {
-        pool.query(query, function (error, results) {
+        pool.query(query, (error, results) => {
             if (error) reject(error);
             else resolve(results);
         });

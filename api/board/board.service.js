@@ -8,9 +8,9 @@ module.exports = {
     updateBoard,
 }
 
-async function query(filter) {
+async function query() {
     try {
-        var query = (Object.keys(filter).length) ? `SELECT * FROM board WHERE name LIKE '%${filter}%'` : `SELECT * FROM board`
+        var query = `SELECT * FROM board`
         const boards = await dbService.runSQL(query)
         const boardsToReturn = boards.map(board => _readyForSend(board))
         return boardsToReturn;
@@ -21,6 +21,7 @@ async function query(filter) {
 
 async function getBoardById(boardId) {
     var query = `SELECT * FROM board WHERE _id = '${boardId}'`;
+    // var query = `SELECT * FROM board WHERE _id = $1`;
     var board = await dbService.runSQL(query);
     if (board.length === 1) {
         const boardToReturn = _readyForSend(board[0])
