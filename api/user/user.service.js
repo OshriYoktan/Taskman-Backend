@@ -27,11 +27,11 @@ async function getById(userId) {
         var query = `SELECT * FROM user WHERE _id = '${userId}'`;
         var user = await dbService.runSQL(query);
         if (user.length === 1) {
-            const userToReturn = _readyForSend(user[0])
+            const userToReturn = _readyUserForSend(user[0])
             return userToReturn;
         }
         else if (user.length > 1) throw new Error(`multiple id found! ${userId}`);
-        throw new Error(`user id ${userId} not found`);
+        else if (user.length < 0) throw new Error(`user id ${userId} not found`);
     } catch (err) {
         logger.error(`while finding user ${userId}`, err)
         throw err
