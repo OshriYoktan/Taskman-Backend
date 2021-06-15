@@ -74,12 +74,11 @@ async function updateBoard(board) {
 }
 
 async function removeBoard(boardId) {
-    var query = `DELETE FROM board WHERE board._id = ${boardId}`;
+    var query = `DELETE FROM board WHERE _id = '${boardId}'`;
     const res = await dbService.runSQL(query)
         .then(okPacket => okPacket.affectedRows === 1
             ? okPacket
             : Promise.reject(new Error(`No board deleted - board id ${boardId}`)));
-
 }
 
 function _readyForSend(board) {
