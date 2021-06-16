@@ -21,7 +21,6 @@ async function query() {
 
 async function getBoardById(boardId) {
     var query = `SELECT * FROM board WHERE _id = '${boardId}'`;
-    // var query = `SELECT * FROM board WHERE _id = $1`;
     var board = await dbService.runSQL(query);
     if (board.length === 1) {
         const boardToReturn = _readyForSend(board[0])
