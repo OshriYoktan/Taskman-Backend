@@ -10,8 +10,8 @@ module.exports = {
 
 async function query() {
     try {
-        var query = `SELECT * FROM board`
-        const boards = await dbService.runSQL(query)
+        var sql = `SELECT * FROM board`
+        const boards = await dbService.runSQL(sql)
         const boardsToReturn = boards.map(board => _readyForSend(board))
         return boardsToReturn;
     } catch (err) {
@@ -20,8 +20,8 @@ async function query() {
 }
 
 async function getBoardById(boardId) {
-    var query = `SELECT * FROM board WHERE _id = '${boardId}'`;
-    var board = await dbService.runSQL(query);
+    var sql = `SELECT * FROM board WHERE _id = '${boardId}'`;
+    var board = await dbService.runSQL(sql);
     if (board.length === 1) {
         const boardToReturn = _readyForSend(board[0])
         return boardToReturn;
@@ -38,12 +38,12 @@ async function addBoard(board) {
         board.background = JSON.stringify(board.background)
         board.labels = JSON.stringify(board.labels)
         board.images = JSON.stringify(board.images)
-        board._id = makeId(11)
-        var query = `INSERT INTO board 
-        (_id, title, members, activity, cards, background, labels, images) VALUES 
-        ('${board._id}', '${board.title}', '${board.members}','${board.activity}',
-        '${board.cards}', '${board.background}', '${board.labels}', '${board.images}')`;
-        await dbService.runSQL(query)
+        board._id = makeId(20)
+        var sql = `INSERT INTO board 
+        (_id, title, members, activity, cards, background, labels, images, description) VALUES 
+        ('${board._id}', '${board.title}', '${board.members}', '${board.activity}',
+         '${board.cards}', '${board.background}', '${board.labels}', '${board.images}', '${board.description}')`;
+        await dbService.runSQL(sql);
         return _readyForSend(board)
     } catch (err) {
         console.log('err:', err)
@@ -52,14 +52,13 @@ async function addBoard(board) {
 
 async function updateBoard(board) {
     try {
-
         board.members = JSON.stringify(board.members)
         board.activity = JSON.stringify(board.activity)
         board.cards = JSON.stringify(board.cards)
         board.background = JSON.stringify(board.background)
         board.labels = JSON.stringify(board.labels)
         board.images = JSON.stringify(board.images)
-        var query = `UPDATE board SET
+        var sql = `UPDATE board SET
         _id = '${board._id}',
         title = '${board.title}',
         members = '${board.members}',
@@ -67,9 +66,10 @@ async function updateBoard(board) {
         cards = '${board.cards}',
         background = '${board.background}',
         labels = '${board.labels}',
-        images = '${board.images}'
+        images = '${board.images}',
+        description = '${board.description}'
         WHERE board._id = '${board._id}'`;
-        var okPacket = await dbService.runSQL(query);
+        var okPacket = await dbService.runSQL(sql);
         const boardToReturn = _readyForSend(board)
         if (okPacket.affectedRows !== 0) return boardToReturn;
         throw new Error(`No board updated - board id ${board._id}`);
@@ -80,8 +80,8 @@ async function updateBoard(board) {
 
 async function removeBoard(boardId) {
     try {
-        var query = `DELETE FROM board WHERE _id = '${boardId}'`;
-        const res = await dbService.runSQL(query)
+        var sql = `DELETE FROM board WHERE _id = '${boardId}'`;
+        const res = await dbService.runSQL(sql)
             .then(okPacket => okPacket.affectedRows === 1
                 ? okPacket
                 : Promise.reject(new Error(`No board deleted - board id ${boardId}`)));

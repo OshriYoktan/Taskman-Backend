@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt')
 const userService = require('../user/user.service')
-const logger = require('../../services/logger.service')
 
 module.exports = {
     signup,
