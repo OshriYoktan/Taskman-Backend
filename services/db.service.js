@@ -1,12 +1,11 @@
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
-    connectionLimit: 10,
+    connectionLimit: 100,
     host: 'us-cdbr-east-03.cleardb.com',
     user: 'be6d4851b3a4ec',
     password: 'ce6e6dae',
     database: 'heroku_5188455ad9124e3'
-    
 });
 
 pool.query('SELECT 1 + 1 AS solution', (error, results, fields) => {
