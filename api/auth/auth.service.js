@@ -11,9 +11,10 @@ async function login(username, password) {
         const user = await userService.getByUsername(username)
         if (!user) return Promise.reject('Invalid username or password')
         const match = await userService.getByPassword(username, password)
-        if (!match) return Promise.reject('Invalid username or password')
-        delete user.password;
+        if (!match || !match.length) return Promise.reject('Invalid username or password')
         const userToReturn = _readyUserForSend(user)
+        delete userToReturn._id
+        delete userToReturn.password
         return userToReturn;
     } catch (err) {
         console.log('err:', err)

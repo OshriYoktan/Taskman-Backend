@@ -54,6 +54,7 @@ async function getByPassword(username, password) {
     try {
         var query = `SELECT * FROM user where password = '${password}' and username = '${username}'`
         const user = await dbService.runSQL(query);
+        if (!user || !user.length) return Promise.reject('Invalid username or password')
         return user;
     } catch (err) {
         logger.error(`while finding user ${password}`, err)

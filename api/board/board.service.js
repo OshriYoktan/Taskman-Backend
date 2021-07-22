@@ -91,7 +91,6 @@ async function removeBoard(boardId) {
 }
 
 function _readyForSend(board) {
-    console.log('board:', board)
     if (board.background) board.background = JSON.parse(board.background)
     board.members = JSON.parse(board.members)
     board.activity = JSON.parse(board.activity)
