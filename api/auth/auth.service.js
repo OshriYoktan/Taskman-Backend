@@ -14,7 +14,7 @@ async function login(username, password) {
         if (!match || !match.length) return Promise.reject('Invalid username or password')
         const userToReturn = _readyUserForSend(user)
         delete userToReturn._id
-        delete userToReturn.password
+        // delete userToReturn.password
         return userToReturn;
     } catch (err) {
         console.log('err:', err)
