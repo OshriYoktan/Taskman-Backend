@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "./static/css/main.34b85a34.chunk.css",
-    "main.js": "./static/js/main.62c18519.chunk.js",
-    "main.js.map": "./static/js/main.62c18519.chunk.js.map",
+    "main.css": "./static/css/main.a7b95014.chunk.css",
+    "main.js": "./static/js/main.6966b121.chunk.js",
+    "main.js.map": "./static/js/main.6966b121.chunk.js.map",
     "runtime-main.js": "./static/js/runtime-main.083a076a.js",
     "runtime-main.js.map": "./static/js/runtime-main.083a076a.js.map",
     "static/css/2.3c434353.chunk.css": "./static/css/2.3c434353.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.3286cbb8.chunk.js.map": "./static/js/3.3286cbb8.chunk.js.map",
     "index.html": "./index.html",
     "static/css/2.3c434353.chunk.css.map": "./static/css/2.3c434353.chunk.css.map",
-    "static/css/main.34b85a34.chunk.css.map": "./static/css/main.34b85a34.chunk.css.map",
+    "static/css/main.a7b95014.chunk.css.map": "./static/css/main.a7b95014.chunk.css.map",
     "static/js/2.1c2d4482.chunk.js.LICENSE.txt": "./static/js/2.1c2d4482.chunk.js.LICENSE.txt",
     "static/media/Taskman-logo.13c10a7c.png": "./static/media/Taskman-logo.13c10a7c.png",
     "static/media/small-loader.3f60b3a5.svg": "./static/media/small-loader.3f60b3a5.svg",
@@ -22,7 +22,7 @@
     "static/js/runtime-main.083a076a.js",
     "static/css/2.3c434353.chunk.css",
     "static/js/2.1c2d4482.chunk.js",
-    "static/css/main.34b85a34.chunk.css",
-    "static/js/main.62c18519.chunk.js"
+    "static/css/main.a7b95014.chunk.css",
+    "static/js/main.6966b121.chunk.js"
   ]
 }
