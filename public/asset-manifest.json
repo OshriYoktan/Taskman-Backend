@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "./static/css/main.a7b95014.chunk.css",
-    "main.js": "./static/js/main.8074e020.chunk.js",
-    "main.js.map": "./static/js/main.8074e020.chunk.js.map",
-    "runtime-main.js": "./static/js/runtime-main.083a076a.js",
-    "runtime-main.js.map": "./static/js/runtime-main.083a076a.js.map",
+    "main.css": "./static/css/main.bdd808c4.chunk.css",
+    "main.js": "./static/js/main.b474a406.chunk.js",
+    "main.js.map": "./static/js/main.b474a406.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.bdeb3236.js",
+    "runtime-main.js.map": "./static/js/runtime-main.bdeb3236.js.map",
     "static/css/2.3c434353.chunk.css": "./static/css/2.3c434353.chunk.css",
-    "static/js/2.1c2d4482.chunk.js": "./static/js/2.1c2d4482.chunk.js",
-    "static/js/2.1c2d4482.chunk.js.map": "./static/js/2.1c2d4482.chunk.js.map",
-    "static/js/3.3286cbb8.chunk.js": "./static/js/3.3286cbb8.chunk.js",
-    "static/js/3.3286cbb8.chunk.js.map": "./static/js/3.3286cbb8.chunk.js.map",
+    "static/js/2.6a71975b.chunk.js": "./static/js/2.6a71975b.chunk.js",
+    "static/js/2.6a71975b.chunk.js.map": "./static/js/2.6a71975b.chunk.js.map",
+    "static/js/3.38a2cbea.chunk.js": "./static/js/3.38a2cbea.chunk.js",
+    "static/js/3.38a2cbea.chunk.js.map": "./static/js/3.38a2cbea.chunk.js.map",
     "index.html": "./index.html",
     "static/css/2.3c434353.chunk.css.map": "./static/css/2.3c434353.chunk.css.map",
-    "static/css/main.a7b95014.chunk.css.map": "./static/css/main.a7b95014.chunk.css.map",
-    "static/js/2.1c2d4482.chunk.js.LICENSE.txt": "./static/js/2.1c2d4482.chunk.js.LICENSE.txt",
+    "static/css/main.bdd808c4.chunk.css.map": "./static/css/main.bdd808c4.chunk.css.map",
+    "static/js/2.6a71975b.chunk.js.LICENSE.txt": "./static/js/2.6a71975b.chunk.js.LICENSE.txt",
     "static/media/Taskman-logo.13c10a7c.png": "./static/media/Taskman-logo.13c10a7c.png",
     "static/media/small-loader.3f60b3a5.svg": "./static/media/small-loader.3f60b3a5.svg",
     "static/media/taskman-loader.d5d52ecc.svg": "./static/media/taskman-loader.d5d52ecc.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.083a076a.js",
+    "static/js/runtime-main.bdeb3236.js",
     "static/css/2.3c434353.chunk.css",
-    "static/js/2.1c2d4482.chunk.js",
-    "static/css/main.a7b95014.chunk.css",
-    "static/js/main.8074e020.chunk.js"
+    "static/js/2.6a71975b.chunk.js",
+    "static/css/main.bdd808c4.chunk.css",
+    "static/js/main.b474a406.chunk.js"
   ]
 }
